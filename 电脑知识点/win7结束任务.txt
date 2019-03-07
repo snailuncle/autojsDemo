@@ -1,0 +1,3 @@
+tasklist
+
+Taskkill/im Pasteasy.exe /f
