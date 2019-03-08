@@ -1,1 +1,11 @@
-#(ocr|OCR|本地识别数字|识别数字|识别汉字|识别文字|识别字符|识别字母|识别英文字母)
+function base64编码(r) {
+  var r = android.util.Base64.encodeToString(r, 0);
+  return r
+}
+
+function base64解码(r) {
+  var r = android.util.Base64.decode(r, 0)
+  return r
+}
+
+setClip("android.util.Base64.encodeToString(r, 0)")
