@@ -10,7 +10,7 @@ git status -s
 git branch
 
 创建分支
-git checkout master -b daily-3-9-2
+git checkout  -b daily-3-9-2
 
 提交到暂存区
 git add .
