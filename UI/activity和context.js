@@ -6,6 +6,10 @@ toastLog(activity
           .getChildCount()
           )
 
+窗口管理器
+wManager = context.getSystemService(
+  context.WINDOW_SERVICE);
+          
 高级输入法
 var window = floaty.window(
   <text id="text"/>
