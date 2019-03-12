@@ -10,26 +10,26 @@ git status -s
 git branch
 
 创建分支
-git checkout  -b daily-3-12-2
+git checkout  -b daily-3-12-3
 
 提交到暂存区
 git add .
 
 提交评论
-git commit -m 'daily-3-12-2'
+git commit -m 'daily-3-12-3'
 
 推送到分支
-git push origin daily-3-12-2
+git push origin daily-3-12-3
 
 
 切换主干||分支
-git checkout master     ||    git checkout  daily-3-12-2
+git checkout master     ||    git checkout  daily-3-12-3
 
 本地合并分支到主干
-git merge daily-3-12-2
+git merge daily-3-12-3
 
 远端合并分支到主干
-git merge origin/daily-3-12-2
+git merge origin/daily-3-12-3
 
 推送主干
 git push origin master
@@ -45,7 +45,7 @@ git clone  https://gitee.com/snailuncle/douban-trailer-imooc.git
 
 使用Git下载v.2.8.1分支代码，使用命令：
 
-git clone -b daily-3-12-2  https://gitee.com/snailuncle/douban-trailer-imooc.git
+git clone -b daily-3-12-3  https://gitee.com/snailuncle/douban-trailer-imooc.git
 
 
 

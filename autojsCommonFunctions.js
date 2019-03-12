@@ -7,12 +7,12 @@
  * 妈呀:  整理了一宿,现在是早上6:34
  * 功能: 把某些常用的函数集中起来,方便调用
  * 函数来源: 都是群里的大佬写的,稻草人,+攀登,Ai,破晓的星辰,灶猫,家,浩然,白酒煮饭,生僻字大佬,内个谁,Xero,无名小姐,壞蛋┭,锦瑟安年Ω,专业滥竽充数,膜拜以上几位大神,不管你们同意不同意,我都把你们的代码搬到一块了,O(∩_∩)O哈哈~
- * git:  https://github.com/snailuncle/autojsCommonFunctions/blob/master/autojsCommonFunctions.js
+ * git:  https://raw.githubusercontent.com/snailuncle/autojsDemo/master/autojsCommonFunctions.js
  */
 
 //  //导入模块
 //  function 导入常用函数模块(){
-//   var url='https://raw.githubusercontent.com/snailuncle/autojsCommonFunctions/master/autojsCommonFunctions.js'
+//   var url='https://raw.githubusercontent.com/snailuncle/autojsDemo/master/autojsCommonFunctions.js'
 //   var r = http.get(url)
 //   log("code = " + r.statusCode);
 //   var html=r.body.bytes()
@@ -1566,7 +1566,7 @@ common.获取deflate网页内容 = function (url,headers) {
 
 common.获取gzip网页内容 = function (url,form,headers,method) {
   var method=method || 'get'
-  var headers=headers || {}  
+  var headers=headers || {}
   function 保存zip文件(zipFile) {
     var path = files.join(files.cwd(), "1下载bilibili弹幕专用/webPage.gzip.js")
     files.createWithDirs(path)
@@ -1619,7 +1619,7 @@ common.获取gzip网页内容 = function (url,form,headers,method) {
     res = http.get(
     url, {
       headers: headers
-    })  
+    })
   }else if(method=='post'){
     res = http.post(
     url, form, {
@@ -1746,7 +1746,7 @@ common.clickAttr = function (attr, value, 找控件默认超时时间) {
       } else {
         return false
       }
-  
+
 }
 common.pressAttr = function (attr, value, 找控件默认超时时间) {
   var 找控件默认超时时间 = 找控件默认超时时间 || 10000
@@ -1771,7 +1771,7 @@ common.pressAttr = function (attr, value, 找控件默认超时时间) {
       } else {
         return false
       }
-  
+
 }
 
 
@@ -2565,6 +2565,7 @@ common.确保有jar文件 = function (jarFileName){
   // 确保有jar文件("pinyin4j")
   var jsoupUrl="http://bmob-cdn-11368.b0.upaiyun.com/2019/03/01/33dd4f2f40b9a65980765ec28535c906.jar"
   var pinyin4jUrl="http://bmob-cdn-11368.b0.upaiyun.com/2019/03/01/ef62e76940139d50808131442e9bc1fc.jar"
+  var webViewClassesDexUrl="http://bmob-cdn-11368.b0.upaiyun.com/2019/03/12/d7732a7f40429bd3809acbfbc0e991a4.dex"
   var sdPath=files.getSdcardPath()
   var path = files.join(sdPath, "/autojsLib/",jarFileName+".jar")
   files.ensureDir(path)
@@ -2579,6 +2580,11 @@ common.确保有jar文件 = function (jarFileName){
       break;
     case 'pinyin4j':
       common.bmob下载文件(pinyin4jUrl,path)
+      break;
+    case 'webViewClasses.dex':
+      var path = files.join(sdPath, "/autojsLib/",jarFileName)
+      files.ensureDir(path)
+      common.bmob下载文件(webViewClassesDexUrl,path)
       break;
     default:
       toastLog('没加这个jar,你自己加吧==>>'+jarFileName)
