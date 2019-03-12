@@ -1,17 +1,5 @@
-//导入模块
-function 导入常用函数模块() {
-  var url = 'https://raw.githubusercontent.com/snailuncle/autojsDemo/master/autojsCommonFunctions.js'
-  var r = http.get(url)
-  log("code = " + r.statusCode);
-  var html = r.body.bytes()
-  files.write('./autojsCommonFunctions.js', '')
-  files.writeBytes('./autojsCommonFunctions.js', html)
-  var common = require('./autojsCommonFunctions.js')
-  return common
-}
-var common = 导入常用函数模块()
+
 var jarFileName = "webViewClasses.dex"
-common.确保有jar文件(jarFileName)
 var sdPath = files.getSdcardPath()
 var path = files.join(sdPath, "/autojsLib/", jarFileName)
 runtime.loadDex(path);
@@ -21,7 +9,7 @@ importClass(android.webkit.WebChromeClient)
 importClass(android.webkit.WebViewClient)
 w = floaty.rawWindow(
     <frame id="yidong1" margin="0" gravity="center"  bg="#881e90ff">
-        <webview id="a" h="200" w="150" margin="0 0"/>
+        <webview id="a" h="400" w="350" margin="0 0"/>
         <vertical>
             <linear margin="0" bg="#ffffffff">
                 <button id="运行" margin="-1 0" text="转换" size="10" h="35" w="50"/>
