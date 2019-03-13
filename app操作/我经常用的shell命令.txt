@@ -26,7 +26,7 @@ am start -n com.youku.phone/com.youku.phone.com.youku.HomePageEntry
 ④
 打开网址(默认浏览器) am start -a android.intent.action.VIEW -d 网址
 微信打开网址
-am start -n com.tencent.mm/com.tencent.mm.plugin.webview.ui.tools.WebVieUI -d 网址
+am start -n com.tencent.mm/com.tencent.mm.plugin.webview.ui.tools.WebViewUI -d 网址
 
 ⑤
 打开桌面图标(比如桌面的快捷方式、小程序等)
