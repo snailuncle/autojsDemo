@@ -9,7 +9,7 @@ importPackage(android.text);
 importPackage(android.text.style);
 
 ui.layout(
-  <vertical id="yidong1" margin="0" gravity="center"  bg="#881e90ff">
+  <vertical id="yidong1" marginTop='0'   bg="#881e90ff">
     <text id="ua" marginTop='10'>ua</text>
     <text id="缓存信息">缓存信息</text>
     <text id="cookie信息" singleLine="true" ellipsize="end" >cookie信息</text>
@@ -18,6 +18,14 @@ ui.layout(
       <button id="清除缓存">清除缓存</button>
       <button id="刷新">刷新</button>
       <button id="上一页">上一页</button>
+    </horizontal>
+    <horizontal>
+      <frame layout_weight="1">
+        <button id="百度网站">百度网站</button>
+      </frame>
+      <frame layout_weight="1">
+        <button id="UA网站" >UA网站</button>
+      </frame>
     </horizontal>
     <webview id="a" h="450" w="350" margin="0 0"/>
   </vertical>
@@ -57,6 +65,8 @@ function 显示手机UA() {
 }
 setInterval(
   () => {
+    var ua = 获取手机ua()
+    ui.ua.setText('UA: '+ua)
     var 缓存信息 = 当前缓存()
     ui.缓存信息.setText(缓存信息)
     var cookie信息 = 当前Cookie()
@@ -75,6 +85,16 @@ function 获取手机ua() {
   return ua
 }
 
+ui.百度网站.on("click", () => {
+var url = "https://www.baidu.com/"
+ui.a.loadUrl(url);
+})
+
+ui.UA网站.on("click", () => {
+var url = "http://www.fynas.com/ua/view"
+ui.a.loadUrl(url);
+})
+
 ui.上一页.on("click", () => {
   var webView = ui.a
   webView.goBack();
@@ -86,7 +106,8 @@ ui.清除缓存.on("click", () => {
   log('清除缓存前cookie=')
   log(CookieStr)
   var webView = ui.a
-  webView.getSettings().setJavaScriptEnabled(false);
+  // 不让用js会白屏
+  // webView.getSettings().setJavaScriptEnabled(false);
   var CookieStr = cookieManager.getCookie(url);
   cookieManager.removeSessionCookies(null);
   cookieManager.removeAllCookie();
