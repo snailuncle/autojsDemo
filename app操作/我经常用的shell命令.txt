@@ -1,0 +1,37 @@
+标题: 我经常用的shell命令
+作者: 小曲奇
+
+①
+点击 input tap X Y
+长按250ms input swipe X1 Y1 X1 Y1 250
+划屏250ms input swipe X1 Y1 X2 Y2 250
+输入文本 input text 文本
+
+②
+安装apk pm install <apk位置>
+卸载apk pm uninstall <包名>
+隐藏应用pm hide <包名>
+显示应用pm unhide	<包名>
+停止应用 am force-stop 包名
+
+③
+am start -n 包名/包名＋类名（-n 类名,-a action,-d date,-m MIME-TYPE,-c category,-e 扩展数据,等）
+(这个是可玩性最强的，可以设置在打开应用时运行该命令来达到跳广告，其他还有很多，我也正在研究中)
+跳广告例子：打开优酷时触发(当然也可以用活动触发，但是得找到这个活动)
+am start -n com.youku.phone/com.youku.phone.com.youku.HomePageEntry
+就可以跳广告
+注：应用包名可以用 【酷安】 的应用管理找或者用其他的都可以
+活动名称可以用 【开发者助手】 来找
+
+④
+打开网址(默认浏览器) am start -a android.intent.action.VIEW -d 网址
+微信打开网址
+am start -n com.tencent.mm/com.tencent.mm.plugin.webview.ui.tools.WebVieUI -d 网址
+
+⑤
+打开桌面图标(比如桌面的快捷方式、小程序等)
+am start "intent:@" (@是/data/data/com.miui.home/databases/launcher5x6.db里的图标对应的intent值
+
+⑥
+关机 shutdown
+重启 reboot
