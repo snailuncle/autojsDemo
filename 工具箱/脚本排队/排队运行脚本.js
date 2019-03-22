@@ -41,7 +41,7 @@ function Task(name, scriptPaths) {
     // log('path')
     // log(path)
     var scriptContent = files.read(path)
-    var newScript = scriptContent + codeWhenExit
+    var newScript = scriptContent + ';' + codeWhenExit
     // log(newScript)
     engines.execScript(path, newScript, {
       arguments: {
