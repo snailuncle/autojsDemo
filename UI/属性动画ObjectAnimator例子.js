@@ -291,7 +291,7 @@ function playAnimationDaShang顺序(view) {
 after(long delay) 将现有动画延迟指定毫秒后执行
 before(Animator anim) 将现有动画插入到传入的动画之前执行
 with(Animator anim) 将现有动画和传入的动画同时执行*/
-  animatorSetPeople.play(translationX).before(scaleX).before(scaleY)
+  animatorSetPeople.play(translationX).before(scaleX).after(scaleY)
   // animatorSetPeople.play(translationX).with(scaleX).with(scaleY)
   // animatorSetPeople.playTogether(translationX, scaleX, scaleY);
   animatorSetPeople.start();
