@@ -2,6 +2,7 @@
  * 作者:  家
  * QQ:    203118908
  * 功能:   canvas.drawBitmapMesh的demo
+ * 说明:   用手指触摸即可看到效果
  */
 'ui';
 importClass(android.graphics.Bitmap)
@@ -15,15 +16,12 @@ importClass(android.graphics.PorterDuff)
 importClass(android.graphics.RectF)
 ui.layout(
   <vertical>
-    <button id='a' >a</button>
     <frame margin= '6 6 6 6' >
       <canvas id='board' ></canvas>
     </frame>
   </vertical>
 )
-ui.a.on('click', function () {
-  a(ui.board)
-})
+
 var url = 'https://desk-fd.zol-img.com.cn/t_s960x600c5/g1/M0B/0F/01/Cg-4jlSjXM6IGISwAARqzSkXVr0AAPpqwHgGlYABGrl783.jpg'
 imgPath = '/sdcard/m.png'
 http.get(
