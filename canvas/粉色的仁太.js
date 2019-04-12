@@ -127,7 +127,17 @@ ui.board.on("draw", function (canvas) {
 
   distance=Math.sin(angel()*0.017453293)*振幅
 
+
+
   canvas.drawARGB(255, 127, 127, 127);
+  // xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
+
+
+  xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
+  myPaint.setXfermode(xfermode);
+  canvas.drawBitmap(myDrawableBitmap, mSrcRect, mDestRect, myPaint);
+
+
   myPath.reset();
   第一个点={
     x:0-左右移动的距离,
@@ -163,9 +173,6 @@ ui.board.on("draw", function (canvas) {
   canvas.drawPath(myPath, myPaint);
 
 
-  xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP);
-  myPaint.setXfermode(xfermode);
-  canvas.drawBitmap(myDrawableBitmap, mSrcRect, mDestRect, myPaint);
 
   myPaint.setXfermode(null);
 
