@@ -1,0 +1,405 @@
+"ui";
+ui.layout(
+    <vertical>
+        <canvas id="canvas" layout_weight="1"/>
+    </vertical>
+);
+
+var paint = new Paint;
+//paint.setTextAlign(Paint.Align.CENTER);
+paint.setStrokeWidth(2);
+//paint.setStyle(Paint.Style.STROKE);
+paint.setStyle(Paint.Style.FILL);
+paint.setARGB(255, 0, 0, 0);
+//paint.setColor(colors.GRAY);
+paint.setTextSize(75);
+
+var paint1 = new Paint;
+//paint1.setTextAlign(Paint.Align.CENTER);
+paint1.setStrokeWidth(2);
+paint1.setStyle(Paint.Style.STROKE);
+//.paint1.setStyle(Paint.Style.FILL);
+paint1.setARGB(255, 255, 0, 0);
+paint1.setTextSize(75);
+var paint2 = new Paint;
+//paint2.setTextAlign(Paint.Align.CENTER);
+paint2.setStrokeWidth(2);
+//paint2.setStyle(Paint.Style.STROKE);
+paint2.setStyle(Paint.Style.FILL);
+paint2.setARGB(255, 0, 255, 0);
+paint2.setTextSize(75);
+
+var matrix = new android.graphics.Matrix;
+
+var ASX = new XYToMatrix(null, 3);
+
+
+var gameWidth = 51,
+    gameHeight = 51,
+    blackEdge = 20;
+var g_w = gameWidth,
+    g_h = gameHeight,
+    b_e = blackEdge;
+var gameRect=new android.graphics.Rect(0,0,g_w,g_h);
+if (g_w < 3 || g_h < 3) {
+    throw "太小无法形成游戏";
+};
+
+var gameAry = new Array(g_w * g_h);
+
+for (let iy = 0; iy < g_h; iy++) {
+    for (let ix = 0; ix < g_w; ix++) {
+        if (ix % 2 && iy % 2) {
+            gameAry[g_w * iy + ix] = 0;
+
+        } else {
+            gameAry[g_w * iy + ix] = 1;
+        };
+    };
+};
+
+//迷宫入口。
+var start = {
+    x: 0,
+    y: random(0, (Math.floor(g_h / 2) - 1)) * 2 + 1
+};
+//迷宫出口。
+var end = {
+    x: g_w-1,
+    y: random(0, (Math.floor(g_h / 2) - 1)) * 2 + 1
+};
+
+gameAry[g_w * start.y + start.x]=0;
+gameAry[g_w * end.y + end.x]=0;
+
+
+
+ui.canvas.on("draw", function(canvas) {
+    var w = canvas.getWidth();
+    var h = canvas.getHeight();
+    canvas.drawARGB(255, 127, 127, 127)
+    canvas.setMatrix(ASX.matrix);
+
+    for (let iy = 0; iy < g_h; iy++) {
+        for (let ix = 0; ix < g_w; ix++) {
+            if (gameAry[g_w * iy + ix]>0) {
+                canvas.drawRect(ix * b_e, iy * b_e, (ix + 1) * b_e, (iy + 1) * b_e, paint); //左
+
+            };
+
+
+        };
+    };
+
+
+    canvas.setMatrix(matrix);
+    canvas.drawText(Math.floor(ASX.getScaling() * 100) / 100, w / 2, h / 2, paint1);
+
+    //canvas.drawPath(path, paint1);
+    //canvas.drawCircle(x,y,5, paint2);
+
+});
+
+
+
+ui.canvas.setOnTouchListener(ASX.touchListener);
+
+/*
+1.将起点作为当前迷宫单元并标记为已访问
+2.当还存在未标记的迷宫单元，进行循环
+	1.如果当前迷宫单元有未被访问过的的相邻的迷宫单元
+		1.随机选择一个未访问的相邻迷宫单元
+		2.将当前迷宫单元入栈
+		3.移除当前迷宫单元与相邻迷宫单元的墙
+		4.标记相邻迷宫单元并用它作为当前迷宫单元
+	2.如果当前迷宫单元不存在未访问的相邻迷宫单元，并且栈不空
+		1.栈顶的迷宫单元出栈
+		2.令其成为当前迷宫单元
+*/
+
+
+var ST={
+    x:start.x+1,
+    y:start.y
+};
+var EN={
+    x:end.x-1,
+    y:end.y
+};
+
+threads.start(function(){
+    DFS(EN);
+    toastLog("迷宫生成完成");
+});
+
+
+
+function DFS(xy){
+
+    let x=xy.x,y=xy.y;
+    //标记为已走过。
+    gameAry[g_w*y+x]=-1;
+    let fx=new Array;
+    do{
+    fx=new Array;
+
+    //左
+    if(gameRect.contains(x-2,y)&&gameAry[g_w*y+x-2]==0){
+        fx.push(new Point(x-2,y));
+    };
+    //上
+    if(gameRect.contains(x,y-2)&&gameAry[g_w*(y-2)+x]==0){
+        fx.push(new Point(x,y-2));
+    };
+    //右
+    if(gameRect.contains(x+2,y)&&gameAry[g_w*y+x+2]==0){
+        fx.push(new Point(x+2,y));
+    };
+    //下
+    if(gameRect.contains(x,y+2)&&gameAry[g_w*(y+2)+x]==0){
+        fx.push(new Point(x,y+2));
+    };
+    //如果有未被访问的方向
+    if(fx.length){
+        //取一个随机的方向。
+        let fxy=fx.splice(random(0,fx.length-1),1)[0];
+        //去掉墙。
+        gameAry[(x+(fxy.x-x)/2)+g_w*(y+(fxy.y-y)/2)]=0;
+        DFS(fxy);
+    };
+    //为了看得直观一点。加个延时。
+    sleep(1);
+    }while(fx.length);
+};
+
+function Point(x,y){
+    this.x=x;
+    this.y=y;
+};
+
+
+function RToxy(R) {
+    var x = Math.cos(R);
+    var y = Math.sin(R);
+    return [x, y];
+};
+
+function weiyi(ary) {
+    var sum = 0;
+    for (var i = 0; i < ary.length; i++) {
+        sum += Math.pow(ary[i], 2);
+    };
+    return Math.sqrt(sum);
+};
+
+function getsd(s, ary) {
+    var sum = weiyi(ary);
+    var S = s / sum;
+    for (var i = 0; i < ary.length; i++) {
+        ary[i] = ary[i] * S;
+    };
+    return ary;
+};
+
+
+
+function XYToMatrix(matrix, maxPoints) {
+    this.matrix = matrix || new android.graphics.Matrix;
+    this.invertMatrix = new android.graphics.Matrix;
+    this.matrix.invert(this.invertMatrix);
+    this.getScaling = function(ary) {
+        ary = Array.isArray(ary) ? ary : [0, 0, 100, 100];
+        try {
+            var Ary = this.matrixPoints(this.matrix, ary);
+            return this.weiyi([Ary[2] - Ary[0], Ary[3] - Ary[1]]) / this.weiyi(ary);
+        } catch (e) {
+            toastLog(e);
+        };
+    };
+    this.maxPoints = maxPoints || 2;
+    this.maxPointsListener = () => {};
+    this.Touch = {
+        Matrix: this.matrix,
+        PointStart: new Array,
+        PointCurrent: new Array,
+
+    };
+    this.touchListener = new android.view.View.OnTouchListener((view, event) => {
+        try {
+            var W = view.getWidth();
+            var H = view.getHeight();
+            var PC = event.getPointerCount();
+            switch (event.getActionMasked()) {
+                case event.ACTION_MOVE:
+                    try {
+                        for (let i = 0; i < PC; i++) {
+                            let id = event.getPointerId(i);
+                            let x = event.getX(i);
+                            let y = event.getY(i);
+                            this.Touch.PointCurrent[i * 2] = x;
+                            this.Touch.PointCurrent[i * 2 + 1] = y;
+                        };
+
+                        //记录当前各手指坐标信息。
+                        if (PC > this.maxPoints) { //手指数大于4个虽然记录坐标信息，但是不进行矩阵操作。
+                            this.maxPointsListener(view, event);
+                            break;
+                        };
+
+                        var Matrix = new android.graphics.Matrix();
+                        Matrix.setPolyToPoly(this.Touch.PointStart, 0, this.Touch.PointCurrent, 0, PC > 4 ? 4 : PC);
+                        this.matrix = new android.graphics.Matrix();
+                        this.matrix.setConcat(Matrix, this.Touch.Matrix);
+                        //进行矩阵运算并刷新矩阵。
+                        this.matrix.invert(this.invertMatrix);
+                        //反矩阵
+                    } catch (e) {
+                        throw "MOVE " + e;
+                    };
+
+
+                    break;
+                case event.ACTION_CANCEL:
+                    //log("CANCEL");
+                    this.Touch.PointStart = new Array;
+                    this.Touch.PointCurrent = new Array;
+
+                    break;
+                case event.ACTION_OUTSIDE:
+                    //log("OUTSIDE");
+
+                    break;
+                default:
+                    var I = Math.floor(event.getAction() / 256);
+                    var ID = event.getPointerId(I);
+                    var X = event.getX(I);
+                    var Y = event.getY(I);
+                    switch (event.getActionMasked()) {
+                        case event.ACTION_DOWN:
+                            try {
+                                log("down");
+                                //当有新的手指按下时使坐标差为零。//开始新的多指矩阵运算方式
+                                this.Touch.PointStart.splice(I * 2, 0, X, Y);
+                                this.Touch.PointCurrent.splice(I * 2, 0, X, Y);
+                                this.Touch.Matrix = this.matrix;
+                                //log(this.Touch.Matrix);
+                            } catch (e) {
+                                throw "DOWN " + e;
+                            };
+                            break;
+                        case event.ACTION_UP:
+                            //最后一个手指抬起。
+                            log("up");
+                            this.Touch.PointStart = new Array;
+                            this.Touch.PointCurrent = new Array;
+
+                            break;
+                        case event.ACTION_POINTER_DOWN:
+                            log("POINTER_DOWN");
+                            try {
+                                //当有新的手指按下时使坐标差为零。//开始新的多指矩阵运算方式
+                                this.Touch.PointStart.splice(I * 2, 0, X, Y);
+                                this.Touch.PointCurrent.splice(I * 2, 0, X, Y);
+                                //获取点的总数量。
+                                this.Touch.Matrix = this.matrix;
+                                for (let i = 0; i < PC; i++) {
+                                    this.Touch.PointStart[i * 2] = this.Touch.PointCurrent[i * 2];
+                                    this.Touch.PointStart[i * 2 + 1] = this.Touch.PointCurrent[i * 2 + 1];
+                                };
+                                //保存坐标的数组。
+                                if (PC > this.maxPoints) { //手指数大于4个化为原始矩阵虽然记录坐标信息，但是不进行矩阵操作。
+                                    this.maxPointsListener(view, event);
+                                    break;
+                                };
+
+                                var Matrix = new android.graphics.Matrix();
+                                Matrix.setPolyToPoly(this.Touch.PointStart, 0, this.Touch.PointCurrent, 0, PC > 4 ? 4 : PC);
+                                this.matrix = new android.graphics.Matrix();
+                                this.matrix.setConcat(Matrix, this.Touch.Matrix);
+                                //进行矩阵运算并刷新矩阵。
+                                this.matrix.invert(this.invertMatrix);
+                                //反矩阵
+                            } catch (e) {
+                                throw "P_DOWN " + e;
+                            };
+
+                            break;
+                        case event.ACTION_POINTER_UP:
+                            log("POINTER_UP");
+                            try {
+                                this.Touch.Matrix = this.matrix;
+                                for (let i = 0; i < PC; i++) {
+                                    this.Touch.PointStart[i * 2] = this.Touch.PointCurrent[i * 2];
+                                    this.Touch.PointStart[i * 2 + 1] = this.Touch.PointCurrent[i * 2 + 1];
+                                };
+                                this.Touch.PointStart.splice(I * 2, 2);
+                                this.Touch.PointCurrent.splice(I * 2, 2);
+
+                            } catch (e) {
+                                throw "P_UP " + e;
+                            };
+                            break;
+                    };
+            };
+        } catch (e) {
+            throw "imgTouch: " + e;
+        };
+
+        return true;
+
+    });
+
+    this.matrixPoints = function(matrix, ary) {
+        //通过矩阵运算坐标数组。但是需要转换为浮点数组。
+        var ary = this.toJavaArray("float", ary);
+        matrix.mapPoints(ary);
+        return this.toJsArray(ary);
+    };
+    this.toJavaArray = function(type, ary) {
+        //var Ary = java.lang.reflect.Array.newInstance(		java.lang.Float.TYPE, 4);
+        var Ary = util.java.array(type, ary.length);
+        for (let i in ary) {
+            Ary[i] = ary[i];
+        };
+        return Ary;
+    };
+    this.toJsArray = function(ary) {
+        var Ary = new Array(ary.length);
+        for (let i in ary) {
+            Ary[i] = ary[i];
+        };
+        return Ary;
+    };
+    this.getsd = (s, ary) => {
+        var sum = this.weiyi(ary);
+        var S = (s / sum) || 0;
+        for (var i = 0; i < ary.length; i++) {
+            ary[i] = ary[i] * S;
+        };
+        return ary;
+    };
+    this.weiyi = function(ary) {
+        var sum = 0;
+        for (var i = 0; i < ary.length; i++) {
+            sum += Math.pow(ary[i], 2);
+        };
+        return Math.sqrt(sum);
+    };
+    this.kdfx = function(Y) {
+        var x = Math.cos(Y % 360 / 360 * 2 * Math.PI);
+        var y = Math.sin(Y % 360 / 360 * 2 * Math.PI);
+        return [x, y];
+    };
+    this.ydfx = (ary) => {
+        var ary = this.getsd(1, ary);
+        var x = ary[0],
+            y = ary[1];
+        var Y = Math.asin(y) / (2 * Math.PI) * 360;
+        if (x < 0) {
+            Y = 180 - Y;
+        };
+        return Y;
+    };
+
+
+};
