@@ -1,4 +1,16 @@
 "ui";
+
+/**
+ *作者QQ: 1811588980
+ *完成时间: 2019年4月13日 下午2:13:12
+ *测试机型: vivo PD1813D
+  *Auto.js版本: 4.1.0 Alpha5
+  *Android版本: 8.1.0
+  *屏幕: 1080*2280
+  *API: 27
+ *备注: 暂无备注
+**/
+
 ui.layout(
     <vertical>
         <canvas id="canvas" layout_weight="1"/>
@@ -45,6 +57,10 @@ if (g_w < 3 || g_h < 3) {
     throw "太小无法形成游戏";
 };
 
+var mBitmap = android.graphics.Bitmap.createBitmap(g_w*b_e,g_h*b_e, android.graphics.Bitmap.Config.ARGB_8888);
+var mCanvas = new android.graphics.Canvas(mBitmap);
+    mCanvas.drawARGB(255, 127, 127, 127)
+
 var gameAry = new Array(g_w * g_h);
 
 for (let iy = 0; iy < g_h; iy++) {
@@ -77,19 +93,9 @@ gameAry[g_w * end.y + end.x]=0;
 ui.canvas.on("draw", function(canvas) {
     var w = canvas.getWidth();
     var h = canvas.getHeight();
-    canvas.drawARGB(255, 127, 127, 127)
+    //canvas.drawARGB(255, 127, 127, 127)
     canvas.setMatrix(ASX.matrix);
-
-    for (let iy = 0; iy < g_h; iy++) {
-        for (let ix = 0; ix < g_w; ix++) {
-            if (gameAry[g_w * iy + ix]>0) {
-                canvas.drawRect(ix * b_e, iy * b_e, (ix + 1) * b_e, (iy + 1) * b_e, paint); //左
-
-            };
-
-
-        };
-    };
+canvas.drawBitmap(mBitmap,0,0,paint);
 
 
     canvas.setMatrix(matrix);
@@ -130,6 +136,14 @@ var EN={
 threads.start(function(){
     DFS(EN);
     toastLog("迷宫生成完成");
+       for (let iy = 0; iy < g_h; iy++) {
+        for (let ix = 0; ix < g_w; ix++) {
+            if (gameAry[g_w * iy + ix]>0) {
+                mCanvas.drawRect(ix * b_e, iy * b_e, (ix + 1) * b_e, (iy + 1) * b_e, paint); //左
+            };
+        };
+    };
+
 });
 
 
@@ -168,7 +182,7 @@ function DFS(xy){
         DFS(fxy);
     };
     //为了看得直观一点。加个延时。
-    sleep(1);
+    //sleep(1);
     }while(fx.length);
 };
 
