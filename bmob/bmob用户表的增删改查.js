@@ -4,8 +4,8 @@
  * 功能:  bmob用户表的增删改查
  */
 var config = {
-  appId: '8eda5254237abb1ff06b6bdfcb5e7467',
-  restKey: 'c8667378125e1e1a0e1b0e94c28a1c97'
+  appId: '',
+  restKey: ''
 }
 var isLog = true
 
