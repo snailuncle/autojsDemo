@@ -2,13 +2,14 @@
  * 作者:  家
  * QQ:   203118908
  * 功能:  list隔行变色
+ * 感谢:  沐泠,隔行变色,给list添加一个bg属性,判断奇偶就可以了
  */
 'ui';
 ui.layout(
   <vertical id='脚本列表页'>
     <scroll>
       <list id='todoList'>
-      <frame id='parent'>
+      <frame id='parent' bg='{{this.bg}}' >
         <text textSize='30sp'  text='{{this.content}}'></text>
       </frame>
       </list>
@@ -29,20 +30,14 @@ var todoList = [{
   },
   {
     content: '555555'
-  },
+  }
 ]
+for(var i=0;i<todoList.length;i++){
+  if(i % 2 == 0){
+    todoList[i].bg='#ffff00'
+  }else{
+    todoList[i].bg='#ff0000'
+
+  }
+}
 ui.todoList.setDataSource(todoList);
-var myCount = function () {
-  var count = 0;
-  return function () {
-    return count++;
-  }
-}()
-ui.todoList.on("item_bind", function (itemView, itemHolder) {
-  var currentCount = myCount()
-  if (currentCount % 2 == 0) {
-    itemView.attr('bg', '#ff0000')
-  } else {
-    itemView.attr('bg', '#ffff00')
-  }
-});
