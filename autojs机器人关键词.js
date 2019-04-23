@@ -84,3 +84,11 @@ https://github.com/snailuncle/autojsDemo/tree/master/%E5%B7%A5%E5%85%B7%E7%AE%B1
 https://github.com/snailuncle/autojsDemo/blob/master/%E5%B7%A5%E5%85%B7%E7%AE%B1/%E8%84%9A%E6%9C%AC%E6%8E%92%E9%98%9F%E6%A8%A1%E5%9D%97155.js
 #(intent)$
 https://github.com/snailuncle/autojsDemo/tree/master/intent
+#(http超时)$
+https://github.com/snailuncle/autojsDemo/blob/master/http/http%E8%B6%85%E6%97%B6%E8%BF%94%E5%9B%9Enull.js
+#(无障碍)$
+https://github.com/snailuncle/autojsDemo/blob/master/UI/ui%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%97%A0%E9%9A%9C%E7%A2%8D%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.js
+#(spinner)$
+https://github.com/snailuncle/autojsDemo/blob/master/UI/spinner.js
+#(动态布局)$
+https://github.com/snailuncle/autojsDemo/blob/master/UI/%E5%8A%A8%E6%80%81%E5%B8%83%E5%B1%80.js
