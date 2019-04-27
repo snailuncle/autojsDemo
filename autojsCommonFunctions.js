@@ -2680,7 +2680,19 @@ common.获取多开分身右侧字母区域指定字母的位置 = function (多
     y:y
   }
 }
-
+common.日期变时间戳 = function (date) {
+  // 调用示例
+  // log(common.日期变时间戳('2019-04-28 18:24:23'))
+  var 参数符合格式吗=/\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d/.test(date)
+  if(!参数符合格式吗){
+    throw '日期格式错误,正确的日期格式 = yyyy-MM-dd HH:mm:ss'
+  }
+  var sdf=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  var ts=java.lang.String.valueOf(sdf.parse(date).getTime()/1000);
+  ts=new java.math.BigDecimal(ts).toString();
+  return (ts);
+}
+  
 
 common.画手势=function(){
   /**
@@ -2947,6 +2959,9 @@ common.画手势=function(){
     画swipe:画swipe,
     画gesture:画gesture,
   }
+  
+  
+
   // setScreenMetrics(1080, 1920);
 
   // var points = [];
