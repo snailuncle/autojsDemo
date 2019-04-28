@@ -2680,6 +2680,16 @@ common.获取多开分身右侧字母区域指定字母的位置 = function (多
     y:y
   }
 }
+/**
+ * 产生随机整数，包含下限值，包括上限值
+ * @param {Number} lower 下限
+ * @param {Number} upper 上限
+ * @return {Number} 返回在下限到上限之间的一个随机整数
+ */
+common.random = function (lower, upper) {
+	return Math.floor(Math.random() * (upper - lower+1)) + lower;
+}
+
 common.日期变时间戳 = function (date) {
   // 调用示例
   // log(common.日期变时间戳('2019-04-28 18:24:23'))
