@@ -2090,9 +2090,46 @@ common.deepCopy=function (obj) {
   return newobj;
 };
 
-function 反色(color) {
+common.反色=function (color) {
   return (-1 - colors.argb(0, colors.red(color), colors.green(color), colors.blue(color)));
 };
+common.指定特征的控件是否存在=function (propFeature, searchCount, intervalTime) {
+  var searchCount = searchCount || 3
+  var intervalTime = intervalTime || 1000
+  //propFeature是一个json格式
+  //desc,text,id,boundsInside,bounds,boundsContains
+  if (!(getObjType(propFeature) == "Object")) {
+    log('你传入的propFeature是')
+    log(propFeature)
+    log('propFeature--控件特征描述是一个对象,正确的对象例子')
+    var obj = {
+      k1: "v1",
+      k2: "v2",
+      k3: "v3"
+    }
+    log(JSON.stringify(obj))
+    throw '请传入一个对象'
+  }
+  var propFeature = propFeature || {}
+  var mySelector = ""
+  for (var k in propFeature) {
+    if (k == "boundsInside" || k == "bounds" || k == "boundsContains") {
+      mySelector += k + "(" + propFeature[k][0] + "," + propFeature[k][1] + "," + propFeature[k][2] + "," + propFeature[k][3] + ")."
+      continue;
+    }
+    mySelector += k + "(\"" + propFeature[k] + "\")."
+  }
+  mySelector += 'findOnce()'
+  for (var i = 0; i < searchCount; i++) {
+    // log('查找第%d次',i)
+    var searchResult = eval(mySelector)
+    if (searchResult) {
+      return searchResult
+    }
+    sleep(intervalTime)
+  }
+  return false
+}
 
 common.bmob上传文件 = function (url, path, appId, restKey) {
   // 注意:url尾部必须带后缀名,后缀名随意
