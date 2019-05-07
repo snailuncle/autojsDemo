@@ -18,7 +18,7 @@ ui.layout(
 )
 ui.post(
   function(){
-    setViewProps('but', ['text', 'bg'], uiConfigPath)
+      setViewProps('but', ['text', 'bg'], uiConfigPath)
   }
 )
 ui.getViewProps.on('click', function () {
@@ -54,13 +54,17 @@ function getViewProps(viewId, propNames, uiConfigPath) {
 }
 
 function setViewProps(viewId, propNames, uiConfigPath) {
-  var propNames = propNames || []
-  var uiConfigContent = files.read(uiConfigPath)
-  uiConfigContent = JSON.parse(uiConfigContent)
-  viewConfig = uiConfigContent[viewId]
-  for (var i = 0; i < propNames.length; i++) {
-    var propName = propNames[i]
-    setViewProp(viewId, propName, viewConfig)
+  try{
+    var propNames = propNames || []
+    var uiConfigContent = files.read(uiConfigPath)
+    uiConfigContent = JSON.parse(uiConfigContent)
+    viewConfig = uiConfigContent[viewId]
+    for (var i = 0; i < propNames.length; i++) {
+      var propName = propNames[i]
+      setViewProp(viewId, propName, viewConfig)
+    }
+  }catch(e){
+
   }
 }
 
