@@ -60,6 +60,7 @@
 '文件大小',
 '字符串变字节',
 '日期加N天',
+'日期变时间戳',
 'md5',
 '是横屏还是竖屏',
 '截图',
@@ -108,6 +109,7 @@
 '获取多开分身右侧字母区域指定字母的位置',
 '模拟真人滑动',
 '画手势',
+'指定特征的控件是否存在',
 ]
 
 
@@ -2090,9 +2092,46 @@ common.deepCopy=function (obj) {
   return newobj;
 };
 
-function 反色(color) {
+common.反色=function (color) {
   return (-1 - colors.argb(0, colors.red(color), colors.green(color), colors.blue(color)));
 };
+common.指定特征的控件是否存在=function (propFeature, searchCount, intervalTime) {
+  var searchCount = searchCount || 3
+  var intervalTime = intervalTime || 1000
+  //propFeature是一个json格式
+  //desc,text,id,boundsInside,bounds,boundsContains
+  if (!(getObjType(propFeature) == "Object")) {
+    log('你传入的propFeature是')
+    log(propFeature)
+    log('propFeature--控件特征描述是一个对象,正确的对象例子')
+    var obj = {
+      k1: "v1",
+      k2: "v2",
+      k3: "v3"
+    }
+    log(JSON.stringify(obj))
+    throw '请传入一个对象'
+  }
+  var propFeature = propFeature || {}
+  var mySelector = ""
+  for (var k in propFeature) {
+    if (k == "boundsInside" || k == "bounds" || k == "boundsContains") {
+      mySelector += k + "(" + propFeature[k][0] + "," + propFeature[k][1] + "," + propFeature[k][2] + "," + propFeature[k][3] + ")."
+      continue;
+    }
+    mySelector += k + "(\"" + propFeature[k] + "\")."
+  }
+  mySelector += 'findOnce()'
+  for (var i = 0; i < searchCount; i++) {
+    // log('查找第%d次',i)
+    var searchResult = eval(mySelector)
+    if (searchResult) {
+      return searchResult
+    }
+    sleep(intervalTime)
+  }
+  return false
+}
 
 common.bmob上传文件 = function (url, path, appId, restKey) {
   // 注意:url尾部必须带后缀名,后缀名随意
@@ -2680,7 +2719,31 @@ common.获取多开分身右侧字母区域指定字母的位置 = function (多
     y:y
   }
 }
+/**
+ * 产生随机整数，包含下限值，包括上限值
+ * @param {Number} lower 下限
+ * @param {Number} upper 上限
+ * @return {Number} 返回在下限到上限之间的一个随机整数
+ */
+common.random = function (lower, upper) {
+	return Math.floor(Math.random() * (upper - lower+1)) + lower;
+}
 
+common.日期变时间戳 = function (date) {
+  // 调用示例
+  // log(common.日期变时间戳('2019-04-28 18:24:23'))
+  var 参数符合格式吗 = /\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d/.test(date)
+  if (!参数符合格式吗) {
+    console.log('日期格式错误,正确的日期格式 = yyyy-MM-dd HH:mm:ss')
+    alert('日期格式错误,正确的日期格式 = yyyy-MM-dd HH:mm:ss')
+    return false
+  }
+  var sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  var ts = java.lang.String.valueOf(sdf.parse(date).getTime());
+  ts = new java.math.BigDecimal(ts).toPlainString().toString();
+  return (ts);
+}
+  
 
 common.画手势=function(){
   /**
@@ -2947,6 +3010,9 @@ common.画手势=function(){
     画swipe:画swipe,
     画gesture:画gesture,
   }
+  
+  
+
   // setScreenMetrics(1080, 1920);
 
   // var points = [];
