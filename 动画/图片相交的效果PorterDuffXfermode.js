@@ -5,6 +5,7 @@
  * 作者:   家
  * QQ:     203118908
  * 功能:    Canvas绘图之PorterDuffXfermode使用
+ * 使用说明: 准备两张图片,试试PorterDuffXfermode, /sdcard/01.png, /sdcard/02.png
  */
 'ui';
 importClass(android.animation.ObjectAnimator)
