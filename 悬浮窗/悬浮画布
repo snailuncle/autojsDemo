@@ -1,0 +1,72 @@
+/**
+ *作者QQ: 1811588980
+ *完成时间: 2019年6月9日 下午9:28:35
+ *测试机型: vivo PD1813D
+  *Auto.js版本: Pro 7.0.3-7
+  *Android版本: 8.1.0
+  *屏幕: 1080*2280
+  *API: 27
+ *备注: 屏幕边缘画了一个圆角的矩形
+ *使用了悬浮窗画布。
+ *特别使用了软件作者提供的代码。
+ *    canvas.drawColor(android.graphics.Color.TRANSPARENT, android.graphics.PorterDuff.Mode.CLEAR);
+*用来清除画布上一次绘制的内容。
+**/
+
+
+
+//importPackage(android.graphics);
+var win = floaty.rawWindow(
+    <vertical>
+        <canvas id="canvas" layout_weight="1"/>
+    </vertical>
+);
+win.setSize(-1, -1);
+win.setTouchable(false);
+
+setInterval(() => {}, 100);
+
+var paint1 = new Paint;
+//paint1.setTextAlign(Paint.Align.CENTER);
+paint1.setStrokeWidth(8);
+paint1.setStyle(Paint.Style.STROKE);
+//.paint1.setStyle(Paint.Style.FILL);
+paint1.setARGB(255, 0, 255, 0);
+//paint1.setTextSize(75);
+
+//win.canvas.setMaxFps(60);
+win.canvas.on("draw", function(canvas) {
+    canvas.drawColor(android.graphics.Color.TRANSPARENT, android.graphics.PorterDuff.Mode.CLEAR);
+    var w = canvas.getWidth();
+    var h = canvas.getHeight();
+    paint1.setStrokeWidth(8);
+    canvas.drawRoundRect(4, 4, w - 4, h - 4, 100, 100, paint1);
+    //canvas.drawPath(path, paint1);
+    //canvas.drawCircle(w / 2, h / 2, 50, paint1);
+
+});
+
+
+
+function RToxy(R) {
+    var x = Math.cos(R);
+    var y = Math.sin(R);
+    return [x, y];
+};
+
+function weiyi(ary) {
+    var sum = 0;
+    for (var i = 0; i < ary.length; i++) {
+        sum += Math.pow(ary[i], 2);
+    };
+    return Math.sqrt(sum);
+};
+
+function getsd(s, ary) {
+    var sum = weiyi(ary);
+    var S = s / sum;
+    for (var i = 0; i < ary.length; i++) {
+        ary[i] = ary[i] * S;
+    };
+    return ary;
+};
