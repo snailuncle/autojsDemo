@@ -1,0 +1,66 @@
+// 引用库和权限
+importClass(android.media.MediaRecorder)
+importClass('java.io.File');
+runtime.requestPermissions(["record_audio"]);
+// 初始化
+output_Path = files.getSdcardPath() + '/record.tmp'
+soundFile = new File(output_Path);
+recorder = null;
+
+// 布局
+var window = floaty.window(
+    <horizontal weightSum="2" bg='#888888'>
+      <button id='record' layout_width="0dp" layout_weight="1" >录音</button>
+      <button id='play' layout_width="0dp" layout_weight="1" >播放</button>
+    </horizontal>
+);
+
+window.setPosition(device.width/4, 0);
+
+// 录音按钮点击
+window.record.click(function(e){
+    if(e.getText()=='录音'){
+        e.setText('停止');
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC); //声音来源是话筒
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); //设置格式
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB); //设置解码方式
+        recorder.setOutputFile(soundFile.getAbsolutePath());
+        recorder.prepare();
+        recorder.start();
+
+    }else{
+        e.setText('录音');
+        recorder.stop();
+        recorder.release();
+        recoder = null;
+    }
+});
+
+var playingTimeout = null;
+// 播放按钮点击
+window.play.click(function(e){
+    if(e.getText()=='播放'){
+        media.playMusic(soundFile.getAbsolutePath());
+        e.setText('停止');
+        playingTimeout = setTimeout(function(){
+            e.setText('播放');
+        }, media.getMusicDuration());
+    }else{
+        media.stopMusic();
+        clearTimeout(playingTimeout);
+        e.setText('播放');
+    }
+});
+
+// 长按播放键退出
+window.play.longClick(function(){
+    if(recorder!=null){
+        recorder.stop();
+        recorder.release();
+    }
+    exit();
+});
+
+
+setInterval(()=>{},3000)
