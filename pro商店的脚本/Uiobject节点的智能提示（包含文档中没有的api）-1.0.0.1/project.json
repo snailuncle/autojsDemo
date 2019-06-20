@@ -1,0 +1,38 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 0,
+    "build_number": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "Uiobject节点的智能提示（包含文档中没有的api）",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "com.uinode",
+  "publish": {
+    "category": "实用工具",
+    "details": "包含有文档中没有的api",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7009999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000000,
+    "minSdkVersion": 2,
+    "permissions": [],
+    "summary": "对aj的uiobject对象的简单封装",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0"
+}

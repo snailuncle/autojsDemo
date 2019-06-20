@@ -1,0 +1,38 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 0,
+    "build_number": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "悬浮按钮",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "doolu.com",
+  "publish": {
+    "category": "实用工具",
+    "details": "推荐用Pro版本\n优化上一版的BUG\n新增跟随屏幕方向自动调整位置\n大柒👆",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7009999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000000,
+    "minSdkVersion": 2,
+    "permissions": [],
+    "summary": "仿AJ的悬浮按钮",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 2,
+  "versionName": "2.0.0-1"
+}

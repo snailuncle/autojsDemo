@@ -1,0 +1,39 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 0,
+    "build_number": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "icon": "res/logo.png",
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "悬浮教程文档",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "com.daWanWei.xfjcwd",
+  "publish": {
+    "category": "实用工具",
+    "details": "用悬浮窗来显示教程文档。和网上js教程。可以移动悬浮窗。可以最小化悬浮窗。",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7009999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000000,
+    "minSdkVersion": 4,
+    "permissions": [],
+    "summary": "用一个悬浮窗来显示教程文档。\n和一些网络js教程。可以最小化，方便随时查询。",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0"
+}

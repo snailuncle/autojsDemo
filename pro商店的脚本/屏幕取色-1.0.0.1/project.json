@@ -1,0 +1,38 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 0,
+    "build_number": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "屏幕取色",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "com.daWanWei.getColor",
+  "publish": {
+    "category": "实用工具",
+    "details": "点击截屏按钮刷新图像。\n可以移动缩放图像进行选择坐标点。点击中间的圆圈可以获取，复制像素点的坐标和颜色。通过拖动移动按钮来移动悬浮窗的位置，点击移动按钮可以将悬浮窗最小化。",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7009999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000000,
+    "minSdkVersion": 4,
+    "permissions": [],
+    "summary": "获取屏幕上像素点的颜色和坐标。",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0"
+}

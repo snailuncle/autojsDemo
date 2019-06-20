@@ -1,0 +1,39 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 0,
+    "build_number": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "icon": "res/logo.png",
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": true
+  },
+  "mainScriptFile": "二维码生成.js",
+  "name": "二维码自定义生成",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "com.thbelief.erweima",
+  "publish": {
+    "category": "实用工具",
+    "details": "自定义文本颜色等等。。。",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7030,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000,
+    "minSdkVersion": 2,
+    "permissions": [],
+    "summary": "一个简单的自定义二维码赛生成的脚本。（需联网）",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0"
+}

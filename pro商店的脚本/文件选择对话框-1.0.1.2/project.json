@@ -1,0 +1,38 @@
+{
+  "assets": [],
+  "build": {
+    "build_number": 0,
+    "build_time": 0,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "文件选择对话框",
+  "optimization": {
+    "removeOpenCv": false,
+    "unusedResources": false
+  },
+  "packageName": "com.example.filechooser",
+  "publish": {
+    "category": "官方示例",
+    "details": "文件(夹)单选的对话框，后续支持多选",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 9999999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000304,
+    "minSdkVersion": 0,
+    "permissions": [],
+    "summary": "文件(夹)单选的对话框，后续支持多选",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 2,
+  "versionName": "1.0.1"
+}

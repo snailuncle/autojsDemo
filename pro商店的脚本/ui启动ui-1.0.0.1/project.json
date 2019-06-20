@@ -1,0 +1,39 @@
+{
+  "assets": [],
+  "build": {
+    "build_time": 1555903559728,
+    "build_id": "2894FAF6-4",
+    "build_number": 4,
+    "release": false
+  },
+  "encryptLevel": 0,
+  "useFeatures": [],
+  "launchConfig": {
+    "displaySplash": true,
+    "hideLogs": false,
+    "splashText": "Powered by Auto.js Pro",
+    "stableMode": false
+  },
+  "mainScriptFile": "main.js",
+  "name": "ui启动ui",
+  "optimization": {
+    "removeOpenCv": true,
+    "unusedResources": false
+  },
+  "packageName": "org.example.uistartui",
+  "publish": {
+    "category": "官方示例",
+    "details": "在UI中启动另一个UI界面的官方示例",
+    "maxAutoJsVersion": -1,
+    "maxProVersion": 7009999,
+    "minAutoJsVersion": -1,
+    "minProVersion": 7000000,
+    "minSdkVersion": 0,
+    "permissions": [],
+    "summary": "在UI中启动另一个UI界面的官方示例",
+    "tags": []
+  },
+  "scripts": {},
+  "versionCode": 1,
+  "versionName": "1.0.0"
+}
