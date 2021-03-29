@@ -11,29 +11,27 @@
 编辑日期：无
 ……
 /*/
-
 /*/
 问题来源Q群
-a > b > c > d > e >f
+a>b>c>d>e>f
 a为1000，f为1，bcde四个为随机数
 邻数相差5以上，这个算法怎么写
 /*/
+toastLog(Random(1,1000,5,6));
 
-toastLog(Random(1, 1000, 5, 6));
-
-function Random(Min, Max, Span, Quantity) {
-    Span++, quantity--;
-    if (Max - Min - Span * Quantity - 1 < 0) {
+function Random(Min,Max,Span,Quantity) {
+    Span++,quantity--;
+    if(Max-Min-Span*Quantity-1<0) {
         throw new Error("\nSorry!\nMax+Min<(Span+1)*quantity-1");
     };
-    var v = [Min];
-    var RANDOM = Min;
-    for (i = 0; i < Quantity; i++) {
-        var MEAN = (Max - RANDOM - Span * (Quantity - i)) / (Quantity - i - 1);
-        RANDOM += Math.floor(Math.random() * MEAN);
-        RANDOM += RANDOM - v[i] > Span - 1 ? 0 : Span - 1;
-        v[i + 1] = RANDOM;
+    var v=[Min];
+    var RANDOM=Min;
+    for (i=0;i<Quantity;i++){
+        var MEAN=(Max-RANDOM-Span*(Quantity-i))/(Quantity-i-1);
+        RANDOM+=Math.floor(Math.random()*MEAN);
+        RANDOM+=RANDOM-v[i]>Span-1?0:Span-1;
+        v[i+1]=RANDOM;
     };
-    v[Quantity] = Max;
+    v[Quantity]=Max;
     return v;
 };
